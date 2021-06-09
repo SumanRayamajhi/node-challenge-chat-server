@@ -14,9 +14,14 @@ const messages = [
 ];
 
 function getNextId() {
-  const lastMessage = messages[messages.length - 1].id;
-  const nextId = parseInt(lastMessage) + 1;
-  return nextId.toString();
+  const lastMessageIndex = messages.length - 1;
+  if (lastMessageIndex === -1) {
+    return 0;
+  } else {
+    const nextId = lastMessageIndex + 1;
+    return nextId;
+  }
+  // for json object, the id has to be a string: nextId.toString();
 }
 
 app.get("/", function (request, response) {
@@ -65,16 +70,17 @@ app.put("/messages/:id", (req, res) => {
 });
 
 app.delete("/messages/:id", (req, res) => {
-  const messageId = parseInt(req.params.id);
+  const messageId = req.params.id;
 
-  const message = messages.find((message) => message.id === messageId);
-  if (message) {
-    const index = messages.findIndex((message) => message.messageId == messageId);
-    messages.splice(index, 1);
-    res.status(201).send({ success: true });
-  } else {
-    res.status(404).send("This message does not exist");
+  const index = messages.findIndex((message) => message.id == messageId);
+  // findIndex() returns -1 if item is not found, but -1 should not be used as index: negative number is not a valid position
+  if (index === -1) {
+    res.status(404).send();
+    return;
   }
+  // remove one item starting from the index that is found
+  messages.splice(index, 1);
+  res.status(201).send({ success: true });
 });
 
 app.listen(3000, () => {
