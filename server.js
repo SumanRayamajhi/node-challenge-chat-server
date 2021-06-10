@@ -11,6 +11,15 @@ const messages = [
   { id: 1, from: "Anne", text: "Good to see you" },
   { id: 2, from: "Helen", text: "Long time, no see" },
   { id: 3, from: "Anne", text: "let's go for a coffee" },
+  { id: 4, from: "Anne", text: "Good to see you 2" },
+  { id: 5, from: "Helen", text: "Long time, no see 2" },
+  { id: 6, from: "Anne", text: "let's go for a coffee 2" },
+  { id: 7, from: "Bart", text: "Welcome to CYF chat system! 2" },
+  { id: 8, from: "Anne", text: "Good to see you 3" },
+  { id: 9, from: "Helen", text: "Long time, no see 3" },
+  { id: 10, from: "Anne", text: "let's go for a coffee 3" },
+  { id: 11, from: "Helen", text: "Long time, no see 4" },
+  { id: 12, from: "Anne", text: "let's go for a coffee 4" }
 ];
 
 function getNextId() {
@@ -24,6 +33,13 @@ function getNextId() {
   // for json object, the id has to be a string: nextId.toString();
 }
 
+function isValidMessage(message) {
+  if (message.text && message.from) {
+    return true;
+  }
+  return false;
+}
+
 app.get("/", function (request, response) {
   response.sendFile(__dirname + "/index.html");
 });
@@ -31,6 +47,24 @@ app.get("/", function (request, response) {
 app.get("/messages", (req, res) => {
   res.status(201).send(messages);
 });
+
+
+app.get("/messages/search", (req, res) => {
+  // get search terms from query params
+  const searchTerm = req.query.text.toLowerCase()
+  // find messages containing the search term
+  const result = messages.filter(item => item.text.toLowerCase().includes(searchTerm))
+  // return them
+  res.send(result)
+})
+
+app.get("/messages/latest", (req, res) => {
+  // get the LAST 10 messages and return them
+  // slice with a negative number will create a new array with the items of the number, counting backwards
+  let result = messages.slice(-10)
+  res.send(result)
+});
+
 
 app.get("/messages/:id", (req, res) => {
   const messageId = parseInt(req.params.id);
@@ -42,16 +76,21 @@ app.get("/messages/:id", (req, res) => {
   }
 });
 
+
+
 app.post("/messages", (req, res) => {
-  const { from, text } = req.body;
-  const id = getNextId();
-  const newMessage = { id: id, from: from, text: text };
-  if (from === "" || text === "") {
+  const message = {
+    id:  getNextId(),
+    from: req.body.from,
+    text: req.body.text,
+  };
+
+  if (!isValidMessage(message)) {
     res.status(404).send("This message is not complete.");
-  } else {
-    messages.push(newMessage);
-    res.status(201).send(newMessage);
+    return;
   }
+  messages.push(message);
+  res.status(201).send(message);
 });
 
 app.put("/messages/:id", (req, res) => {
