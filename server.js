@@ -84,6 +84,8 @@ app.post("/messages", (req, res) => {
     from: req.body.from,
     text: req.body.text,
   };
+  // add timestamp to each new message
+  message.timeSent = new Date()
 
   if (!isValidMessage(message)) {
     res.status(404).send("This message is not complete.");
@@ -96,16 +98,15 @@ app.post("/messages", (req, res) => {
 app.put("/messages/:id", (req, res) => {
   const messageId = parseInt(req.params.id);
   let updatedMessage = req.body;
-  console.log(updatedMessage);
 
   let message = messages.find((message) => message.id === messageId);
-  if (message) {
-    message.from = updatedMessage.from;
-    message.text = updatedMessage.text;
-    res.status(201).send(updatedMessage);
-  } else {
+  if (!message) {
     res.status(404).send("This message does not exist");
   }
+    message.from = updatedMessage.from;
+    message.text = updatedMessage.text;
+    timeSent = message.timeSent
+    res.status(201).send(updatedMessage);
 });
 
 app.delete("/messages/:id", (req, res) => {
