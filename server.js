@@ -1,128 +1,160 @@
 const express = require("express");
 const cors = require("cors");
-
+const fs = require("fs");
+const { response, request } = require("express");
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-const messages = [
-  { id: 0, from: "Bart", text: "Welcome to CYF chat system!" },
-  { id: 1, from: "Anne", text: "Good to see you" },
-  { id: 2, from: "Helen", text: "Long time, no see" },
-  { id: 3, from: "Anne", text: "let's go for a coffee" },
-  { id: 4, from: "Anne", text: "Good to see you 2" },
-  { id: 5, from: "Helen", text: "Long time, no see 2" },
-  { id: 6, from: "Anne", text: "let's go for a coffee 2" },
-  { id: 7, from: "Bart", text: "Welcome to CYF chat system! 2" },
-  { id: 8, from: "Anne", text: "Good to see you 3" },
-  { id: 9, from: "Helen", text: "Long time, no see 3" },
-  { id: 10, from: "Anne", text: "let's go for a coffee 3" },
-  { id: 11, from: "Helen", text: "Long time, no see 4" },
-  { id: 12, from: "Anne", text: "let's go for a coffee 4" }
-];
+const saveNewMessageToJson = (messages) => {
+  const text = JSON.stringify(messages, null, 4);
+  fs.writeFileSync("./messages.json", text);
+};
 
-function getNextId() {
-  const lastMessageIndex = messages.length - 1;
-  if (lastMessageIndex === -1) {
-    return 0;
-  } else {
-    const nextId = lastMessageIndex + 1;
-    return nextId;
-  }
-  // for json object, the id has to be a string: nextId.toString();
-}
+const getMessagesFromJson = () => {
+  const text = fs.readFileSync("./messages.json");
+  const obj = JSON.parse(text);
+  return obj;
+};
 
-function isValidMessage(message) {
-  if (message.text && message.from) {
-    return true;
-  }
-  return false;
-}
-
-app.get("/", function (request, response) {
+const fromHtml = (request, response) => {
   response.sendFile(__dirname + "/index.html");
-});
+};
 
-app.get("/messages", (req, res) => {
-  res.status(201).send(messages);
-});
+//get all the messages
+const getAllMessages = (request, response) => {
+  const messages = getMessagesFromJson();
+  response.send(messages);
+};
 
-
-app.get("/messages/search", (req, res) => {
-  // get search terms from query params
-  const searchTerm = req.query.text.toLowerCase()
-  // find messages containing the search term
-  const result = messages.filter(item => item.text.toLowerCase().includes(searchTerm))
-  // return them
-  res.send(result)
-})
-
-app.get("/messages/latest", (req, res) => {
-  // get the LAST 10 messages and return them
-  // slice with a negative number will create a new array with the items of the number, counting backwards
-  let result = messages.slice(-10)
-  res.send(result)
-});
-
-
-app.get("/messages/:id", (req, res) => {
-  const messageId = parseInt(req.params.id);
-  const message = messages.find((message) => message.id === messageId);
-  if (message) {
-    res.status(201).send(message);
+//get messages by Id
+const getMassagesById = (request, response) => {
+  const messagesId = parseInt(request.params.id);
+  let foundMessage = getMessagesFromJson().find((m) => m.id === messagesId);
+  if (foundMessage) {
+    response.status(201).send(foundMessage);
   } else {
     res.status(404).send("This message does not exist");
   }
-});
+};
 
+// get last 10 messages
+const getLastTenMessages = (request, response) => {
+  const lastTenMessages = getMessagesFromJson().slice(-10);
+  response.send(lastTenMessages);
+};
 
+//Create a new message with date
+const addNewMessageWithDate = (request, response) => {
+  const newMessage = request.body;
+  const messages = getMessagesFromJson();
 
-app.post("/messages", (req, res) => {
-  const message = {
-    id:  getNextId(),
-    from: req.body.from,
-    text: req.body.text,
-  };
-  // add timestamp to each new message
-  message.timeSent = new Date()
+  const maxMessageId = Math.max(...messages.map((m) => m.id));
+  newMessage.id = maxMessageId + 1;
+  message.timeSent = `${new Date()}`;
 
-  if (!isValidMessage(message)) {
-    res.status(404).send("This message is not complete.");
-    return;
+  if (newMessage.text === "" || newMessage.from === "") {
+    response.status(400).send("either text or sender name is empty");
+  } else {
+    messages.push(newMessage);
+    saveNewMessageToJson(messages);
+
+    response.status(201).send(newMessage);
   }
-  messages.push(message);
-  res.status(201).send(message);
-});
+};
 
-app.put("/messages/:id", (req, res) => {
-  const messageId = parseInt(req.params.id);
-  let updatedMessage = req.body;
+//Delete a message, by ID
+const deleteMessageById = (request, response) => {
+  const messageId = parseInt(request.params.id);
+  let messages = getMessagesFromJson();
 
-  let message = messages.find((message) => message.id === messageId);
-  if (!message) {
-    res.status(404).send("This message does not exist");
+  const jsonMessage = messages.find((m) => m.id === messageId);
+  if (jsonMessage) {
+    messages = messages.filter((m) => m.id != messageId);
+    saveNewMessageToJson(messages);
+    response.status(200).send(jsonMessage);
+  } else {
+    response.status(404).send("Did not find messsages with id " + messageId);
   }
-    message.from = updatedMessage.from;
-    message.text = updatedMessage.text;
-    timeSent = message.timeSent
-    res.status(201).send(updatedMessage);
-});
+};
 
-app.delete("/messages/:id", (req, res) => {
-  const messageId = req.params.id;
-
-  const index = messages.findIndex((message) => message.id == messageId);
-  // findIndex() returns -1 if item is not found, but -1 should not be used as index: negative number is not a valid position
-  if (index === -1) {
-    res.status(404).send();
-    return;
+// search specific message with the text
+const searchSpecificMessageWithText = (request, response) => {
+  const query = request.query.text.toLowerCase();
+  const foundMessages = getMessagesFromJson().filter(
+    (m) => m.text.toLowerCase().includes(query) || m.from.toLowerCase(query)
+  );
+  if (foundMessages.length < 1) {
+    response.status(404).send(`Message doesn't contain "${query}"`);
+  } else {
+    response.send(foundMessages);
   }
-  // remove one item starting from the index that is found
-  messages.splice(index, 1);
-  res.status(201).send({ success: true });
-});
+};
 
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
+// change messages information
+const changeMessagesInfo = (request, response) => {
+  const id = parseInt(request.params.id);
+  const updatedInfo = request.body;
+  let foundMessage = getMessagesFromJson().find((m) => m.id === id);
+  if (updatedInfo.text) {
+    foundMessage.text = updatedInfo.text;
+  }
+  if (updatedInfo.from) {
+    foundMessage.from = updatedInfo.from;
+  }
+  addToJson(messages);
+  response.status(200).send(updatedInfo);
+};
+
+// function isValidMessage(message) {
+//   if (message.text && message.from) {
+//     return true;
+//   }
+//   return false;
+// }
+
+// app.get("/messages", (req, res) => {
+//   res.status(201).send(messages);
+// });
+
+// app.put("/messages/:id", (req, res) => {
+//   const messageId = parseInt(req.params.id);
+//   let updatedMessage = req.body;
+
+//   let message = messages.find((message) => message.id === messageId);
+//   if (!message) {
+//     res.status(404).send("This message does not exist");
+//   }
+//   message.from = updatedMessage.from;
+//   message.text = updatedMessage.text;
+//   timeSent = message.timeSent;
+//   res.status(201).send(updatedMessage);
+// });
+
+// app.delete("/messages/:id", (req, res) => {
+//   const messageId = req.params.id;
+
+//   const index = messages.findIndex((message) => message.id == messageId);
+//   // findIndex() returns -1 if item is not found, but -1 should not be used as index: negative number is not a valid position
+//   if (index === -1) {
+//     res.status(404).send();
+//     return;
+//   }
+//   // remove one item starting from the index that is found
+//   messages.splice(index, 1);
+//   res.status(201).send({ success: true });
+// });
+
+app.get("/", fromHtml);
+app.get("/messages", getAllMessages);
+app.post("/messages", addNewMessageWithDate);
+app.get("/messages/search", searchSpecificMessageWithText);
+app.patch("/messages/:id", changeMessagesInfo);
+app.get("/messages/latest", getLastTenMessages);
+app.delete("/messages/:id", deleteMessageById);
+app.get("/messages/:id", getMassagesById);
+
+app.listen(4000, () => {
+  console.log("Listening on port 4000");
 });
