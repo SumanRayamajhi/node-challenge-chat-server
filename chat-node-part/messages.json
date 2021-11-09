@@ -1,0 +1,178 @@
+[
+    {
+        "id": 0,
+        "from": "Bart",
+        "text": "Welcome to CYF chat system!"
+    },
+    {
+        "id": 1,
+        "from": "Anne",
+        "text": "Good to see you"
+    },
+    {
+        "id": 2,
+        "from": "Helen",
+        "text": "Long time, no see"
+    },
+    {
+        "id": 3,
+        "from": "Anne",
+        "text": "let's go for a coffee"
+    },
+    {
+        "id": 4,
+        "from": "Anne",
+        "text": "Good to see you 2"
+    },
+    {
+        "id": 5,
+        "from": "Helen",
+        "text": "Long time, no see 2"
+    },
+    {
+        "id": 6,
+        "from": "Anne",
+        "text": "let's go for a coffee 2"
+    },
+    {
+        "id": 7,
+        "from": "Bart",
+        "text": "Welcome to CYF chat system! 2"
+    },
+    {
+        "id": 8,
+        "from": "Anne",
+        "text": "Good to see you 3"
+    },
+    {
+        "id": 9,
+        "from": "Helen",
+        "text": "Long time, no see 3"
+    },
+    {
+        "id": 10,
+        "from": "Anne",
+        "text": "let's go for a coffee 3"
+    },
+    {
+        "id": 11,
+        "from": "Helen",
+        "text": "Long time, no see 4"
+    },
+    {
+        "id": 12,
+        "from": "Anne",
+        "text": "let's go for a coffee 4"
+    },
+    {
+        "from": "Helena",
+        "text": "Long time, no see 4599",
+        "id": 13
+    },
+    {
+        "from": "Helena",
+        "text": "Long time, no see 4599",
+        "id": 14
+    },
+    {
+        "from": "Suman",
+        "text": "Long time, no see, so see you soon",
+        "id": 15
+    },
+    {
+        "from": "John Doe",
+        "text": "hello!, how are you?",
+        "id": 16,
+        "timeSent": "Sat Oct 23 2021 19:58:13 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "Hatem",
+        "text": "Hi ",
+        "id": 17,
+        "timeSent": "Sat Oct 23 2021 20:01:10 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hello",
+        "id": 18,
+        "timeSent": "Sun Oct 24 2021 23:53:41 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hello",
+        "id": 19,
+        "timeSent": "Sun Oct 24 2021 23:54:52 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hello",
+        "id": 20,
+        "timeSent": "Sun Oct 24 2021 23:54:58 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hello",
+        "id": 21,
+        "timeSent": "Sun Oct 24 2021 23:54:58 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hello",
+        "id": 23,
+        "timeSent": "Mon Oct 25 2021 00:24:23 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "Hatem",
+        "text": "how are you?",
+        "id": 25,
+        "timeSent": "Mon Oct 25 2021 01:00:12 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "suman",
+        "text": "how are you?",
+        "id": 26,
+        "timeSent": "Sat Oct 30 2021 19:22:40 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "Hatem",
+        "text": "hello",
+        "id": 27,
+        "timeSent": "Sat Oct 30 2021 19:51:31 GMT+0200 (Central European Summer Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hellloooo",
+        "id": 28,
+        "timeSent": "Tue Nov 02 2021 08:12:53 GMT+0100 (Central European Standard Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hiiii",
+        "id": 29,
+        "timeSent": "Tue Nov 02 2021 08:32:05 GMT+0100 (Central European Standard Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hiiii",
+        "id": 30,
+        "timeSent": "Tue Nov 02 2021 08:32:42 GMT+0100 (Central European Standard Time)"
+    },
+    {
+        "from": "Johny",
+        "text": "how are you all",
+        "id": 31,
+        "timeSent": "Tue Nov 02 2021 08:42:11 GMT+0100 (Central European Standard Time)"
+    },
+    {
+        "from": "suman",
+        "text": "hello, world",
+        "id": 32,
+        "timeSent": "Tue Nov 09 2021 08:15:23 GMT+0100 (Central European Standard Time)"
+    },
+    {
+        "from": "Yohna ",
+        "text": "Hello! world, good morning from Barcelona.",
+        "id": 33,
+        "timeSent": "Tue Nov 09 2021 08:16:30 GMT+0100 (Central European Standard Time)"
+    }
+]

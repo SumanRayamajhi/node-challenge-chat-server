@@ -48,13 +48,14 @@ const getLastTenMessages = (request, response) => {
 //Create a new message with date
 const addNewMessageWithDate = (request, response) => {
   const newMessage = request.body;
+  console.log(newMessage);
   const messages = getMessagesFromJson();
 
   const maxMessageId = Math.max(...messages.map((m) => m.id));
   newMessage.id = maxMessageId + 1;
-  message.timeSent = `${new Date()}`;
+  newMessage.timeSent = `${new Date()}`;
 
-  if (newMessage.text === "" || newMessage.from === "") {
+  if (isEmpty(newMessage.text) || isEmpty(newMessage.from)) {
     response.status(400).send("either text or sender name is empty");
   } else {
     messages.push(newMessage);
@@ -62,6 +63,10 @@ const addNewMessageWithDate = (request, response) => {
 
     response.status(201).send(newMessage);
   }
+};
+
+const isEmpty = (v) => {
+  return v === "" || v === null || v === undefined;
 };
 
 //Delete a message, by ID
@@ -106,45 +111,6 @@ const changeMessagesInfo = (request, response) => {
   addToJson(messages);
   response.status(200).send(updatedInfo);
 };
-
-// function isValidMessage(message) {
-//   if (message.text && message.from) {
-//     return true;
-//   }
-//   return false;
-// }
-
-// app.get("/messages", (req, res) => {
-//   res.status(201).send(messages);
-// });
-
-// app.put("/messages/:id", (req, res) => {
-//   const messageId = parseInt(req.params.id);
-//   let updatedMessage = req.body;
-
-//   let message = messages.find((message) => message.id === messageId);
-//   if (!message) {
-//     res.status(404).send("This message does not exist");
-//   }
-//   message.from = updatedMessage.from;
-//   message.text = updatedMessage.text;
-//   timeSent = message.timeSent;
-//   res.status(201).send(updatedMessage);
-// });
-
-// app.delete("/messages/:id", (req, res) => {
-//   const messageId = req.params.id;
-
-//   const index = messages.findIndex((message) => message.id == messageId);
-//   // findIndex() returns -1 if item is not found, but -1 should not be used as index: negative number is not a valid position
-//   if (index === -1) {
-//     res.status(404).send();
-//     return;
-//   }
-//   // remove one item starting from the index that is found
-//   messages.splice(index, 1);
-//   res.status(201).send({ success: true });
-// });
 
 app.get("/", fromHtml);
 app.get("/messages", getAllMessages);
