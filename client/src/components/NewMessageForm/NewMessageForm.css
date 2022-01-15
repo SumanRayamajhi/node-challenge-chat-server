@@ -1,0 +1,67 @@
+.container {
+  background-color: rgb(17, 17, 43);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  border: none;
+  padding-top: 1rem;
+}
+.app-wrapper {
+  background-color: #fff;
+  min-width: 350px;
+  min-height: 550px;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.name,
+.message {
+  margin: 20px;
+  color: #969292;
+  font-size: 16px;
+}
+.input {
+  height: 32px;
+  font-size: 20px;
+  outline: none;
+  width: 100%;
+  border-top-style: none;
+  border-left-style: none;
+  border-right-style: none;
+  border-bottom-style: 2px solid #000;
+  margin-bottom: 10px;
+}
+
+.input-message {
+  height: 62px;
+  font-size: 20px;
+  border-radius: 5px;
+  width: 100%;
+  border-style: 2px solid #000;
+  margin-bottom: 10px;
+}
+.NewMessageForm__send {
+  display: flex;
+  text-transform: uppercase;
+  font-size: 20px;
+  border-radius: 25px;
+  color: white;
+  padding: 10px 60px;
+  background: linear-gradient(to right, #ab1dcf, #3561f1);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  margin: auto;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+button:active {
+  transform: translate(2px);
+}
+
+.title {
+  color: #3561f1;
+  text-align: center;
+  margin: 80px 0px 40px 0px;
+}

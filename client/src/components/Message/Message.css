@@ -1,0 +1,25 @@
+.blog-preview {
+  padding: 16px;
+  margin: 20px 0px;
+  color: aliceblue;
+  align-items: center;
+}
+.blog-preview:hover {
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+}
+.blog-preview h2 {
+  font-size: 20px;
+  color: #3561f1;
+  margin-bottom: 8px;
+}
+.deleteButton {
+  background-color: #909bbe;
+  padding: 6px;
+  border-radius: 50%;
+  color: red;
+}
+.Message__head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

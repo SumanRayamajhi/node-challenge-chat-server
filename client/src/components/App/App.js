@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Message from "./components/Message";
-import NewMessageForm from "./components/NewMessageForm";
+import Message from "../Message/Message";
+import NewMessageForm from "../NewMessageForm/NewMessageForm";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "../Navbar/Navbar";
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -31,7 +31,7 @@ function App() {
 
   const messageElements = messages.map((message) => {
     return (
-      <div>
+      <div className="allMessageField">
         <ul style={{ listStyle: "none" }}>
           <li>
             <Message
@@ -39,7 +39,6 @@ function App() {
               from={message.from}
               text={message.text}
               date={message.timeSent}
-              
               onDelete={deleteMessage}
               // addDate={addDate}
             />
@@ -51,22 +50,19 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <Navbar />
-        <div className="content">
-          <Switch>
-            <Route exact path="/">
-              <NewMessageForm
-                showMessage={() => setShowMessage(!showMessage)}
-                setMessages={setMessages}
-              />
-            </Route>
-            <Route exact path="/messages">
-              {messageElements}
-            </Route>
-          </Switch>
-        </div>
-      </div>
+      <Navbar />
+
+      <Switch>
+        <Route exact path="/">
+          <NewMessageForm
+            showMessage={() => setShowMessage(!showMessage)}
+            setMessages={setMessages}
+          />
+        </Route>
+        <Route exact path="/messages">
+          {messageElements}
+        </Route>
+      </Switch>
     </Router>
   );
 }

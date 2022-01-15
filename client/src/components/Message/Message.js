@@ -1,16 +1,19 @@
 import { FaTimes } from "react-icons/fa";
+import "./Message.css";
+
 const Message = ({ id, from, text, onDelete, date }) => {
   return (
     <div className="blog-preview">
-      <p>From: {from} </p>
-      <p>
-        Text: "{text}"
+      <div className="Message__head">
+        <p>From:{from}</p>
         <FaTimes
           className="deleteButton"
           style={{ color: "red", cursor: "pointer", marginLeft: "18rem" }}
           onClick={() => onDelete(id)}
         />
-      </p>
+      </div>
+
+      <p>Text: "{text}"</p>
       <p>Date: {date} </p>
     </div>
   );

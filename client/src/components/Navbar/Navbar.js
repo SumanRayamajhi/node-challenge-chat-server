@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import "./Navbar.css";
+
 const Navbar = ({ showMessage }) => {
   return (
     <nav className="navbar">

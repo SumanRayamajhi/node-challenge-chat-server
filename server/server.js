@@ -3,6 +3,7 @@ const cors = require("cors");
 const fs = require("fs");
 const { response, request } = require("express");
 const app = express();
+const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
@@ -53,7 +54,7 @@ const addNewMessageWithDate = (request, response) => {
 
   const maxMessageId = Math.max(...messages.map((m) => m.id));
   newMessage.id = maxMessageId + 1;
-  newMessage.timeSent = `${new Date()}`;
+  newMessage.timeSent = `${new timestamp()}`;
 
   if (isEmpty(newMessage.text) || isEmpty(newMessage.from)) {
     response.status(400).send("either text or sender name is empty");
@@ -121,6 +122,6 @@ app.get("/messages/latest", getLastTenMessages);
 app.delete("/messages/:id", deleteMessageById);
 app.get("/messages/:id", getMassagesById);
 
-app.listen(4000, () => {
-  console.log("Listening on port 4000");
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
