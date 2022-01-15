@@ -10,7 +10,7 @@ function App() {
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
-    const url = "http://localhost:4000/messages/latest";
+    const url = `${process.env.REACT_APP_API_BASE_URL}/messages/latest`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setMessages(data));
