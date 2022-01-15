@@ -12,7 +12,7 @@ function NewMessageForm({ addDate }) {
       from: name,
       text: message,
     };
-    const url = "http://localhost:4000/messages";
+    const url = `${process.env.REACT_APP_API_BASE_URL}/messages`;
     fetch(url, {
       method: "POST",
       headers: {

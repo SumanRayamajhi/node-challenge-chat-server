@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   const deleteMessage = (id) => {
-    const url1 = `http://localhost:4000/messages/${id}`;
+    const url1 = `${process.env.REACT_APP_API_BASE_URL}/messages/${id}`;
 
     fetch(url1, {
       method: "DELETE",
