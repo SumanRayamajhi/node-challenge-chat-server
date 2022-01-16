@@ -54,7 +54,7 @@ const addNewMessageWithDate = (request, response) => {
 
   const maxMessageId = Math.max(...messages.map((m) => m.id));
   newMessage.id = maxMessageId + 1;
-  newMessage.timeSent = `${new timestamp()}`;
+  newMessage.timeSent = `${new Date()}`;
 
   if (isEmpty(newMessage.text) || isEmpty(newMessage.from)) {
     response.status(400).send("either text or sender name is empty");

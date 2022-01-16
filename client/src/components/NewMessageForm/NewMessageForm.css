@@ -1,9 +1,9 @@
 .container {
-  background-color: rgb(17, 17, 43);
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   border: none;
   padding-top: 1rem;
 }

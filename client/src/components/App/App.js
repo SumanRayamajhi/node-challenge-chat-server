@@ -55,6 +55,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <NewMessageForm
+            className="allMessages"
             showMessage={() => setShowMessage(!showMessage)}
             setMessages={setMessages}
           />

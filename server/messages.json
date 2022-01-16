@@ -80,63 +80,15 @@
         "id": 15
     },
     {
-        "from": "John Doe",
-        "text": "hello!, how are you?",
+        "from": "suman",
+        "text": "Hello eveyone ",
         "id": 16,
-        "timeSent": "Sat Oct 23 2021 19:58:13 GMT+0200 (Central European Summer Time)"
+        "timeSent": "Sun Jan 16 2022 19:07:44 GMT+0100 (Central European Standard Time)"
     },
     {
-        "from": "Hatem",
-        "text": "Hi ",
+        "from": "suman",
+        "text": "Hello eveyone ",
         "id": 17,
-        "timeSent": "Sat Oct 23 2021 20:01:10 GMT+0200 (Central European Summer Time)"
-    },
-    {
-        "from": "suman",
-        "text": "hiiii",
-        "id": 29,
-        "timeSent": "Tue Nov 02 2021 08:32:05 GMT+0100 (Central European Standard Time)"
-    },
-    {
-        "from": "suman",
-        "text": "hiiii",
-        "id": 30,
-        "timeSent": "Tue Nov 02 2021 08:32:42 GMT+0100 (Central European Standard Time)"
-    },
-    {
-        "from": "suman",
-        "text": "hello",
-        "id": 38,
-        "timeSent": "Mon Jan 10 2022 12:57:17 GMT+0100 (Central European Standard Time)"
-    },
-    {
-        "from": "suman",
-        "text": "hello",
-        "id": 39,
-        "timeSent": "Mon Jan 10 2022 12:57:22 GMT+0100 (Central European Standard Time)"
-    },
-    {
-        "from": "suman",
-        "text": "hello",
-        "id": 40,
-        "timeSent": "Mon Jan 10 2022 12:57:44 GMT+0100 (Central European Standard Time)"
-    },
-    {
-        "from": "suman",
-        "text": "how are you? sss",
-        "id": 41,
-        "timeSent": "Mon Jan 10 2022 13:59:20 GMT+0100 (Central European Standard Time)"
-    },
-    {
-        "from": "suman",
-        "text": "how are you? sss",
-        "id": 42,
-        "timeSent": "Mon Jan 10 2022 13:59:21 GMT+0100 (Central European Standard Time)"
-    },
-    {
-        "from": "Johny",
-        "text": "Hello",
-        "id": 43,
-        "timeSent": "Mon Jan 10 2022 14:46:46 GMT+0100 (Central European Standard Time)"
+        "timeSent": "Sun Jan 16 2022 19:07:49 GMT+0100 (Central European Standard Time)"
     }
 ]
