@@ -19,7 +19,7 @@
 .message {
   margin: 20px;
   color: #969292;
-  font-size: 16px;
+  font-size: 14px;
 }
 .input {
   height: 32px;
@@ -31,6 +31,7 @@
   border-right-style: none;
   border-bottom-style: 2px solid #000;
   margin-bottom: 10px;
+  padding: 0.5rem;
 }
 
 .input-message {
@@ -40,6 +41,7 @@
   width: 100%;
   border-style: 2px solid #000;
   margin-bottom: 10px;
+  padding: 0.5rem;
 }
 .NewMessageForm__send {
   display: flex;
