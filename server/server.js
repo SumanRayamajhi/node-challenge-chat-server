@@ -5,12 +5,26 @@ const { response, request } = require("express");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"));
-  });
-}
+const whitelist = [
+  "http://localhost:3000",
+  "http://localhost:4000",
+  "http://localhost:8080",
+  "https://shrouded-journey-38552.heroku.com",
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("** Origin of request " + origin);
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable");
+      callback(null, true);
+    } else {
+      console.log("Origin rejected");
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+app.use(cors(corsOptions));
 
 app.use(cors());
 app.use(express.json());
@@ -128,6 +142,13 @@ app.patch("/messages/:id", changeMessagesInfo);
 app.get("/messages/latest", getLastTenMessages);
 app.delete("/messages/:id", deleteMessageById);
 app.get("/messages/:id", getMassagesById);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
